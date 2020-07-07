@@ -1,49 +1,43 @@
-import React, {FC} from 'react';
+import React, { FC, ButtonHTMLAttributes, AnchorHTMLAttributes} from 'react';
 import classNames from 'classnames'
 
-export enum ButtonSize {
-    Large = "lg",
-    Small = "sm"
-}
-
-export enum ButtonType {
-   Chinoiserie = "Chinoiserie",
-   Primary = "primary",
-   Default = "default",
-   Danger = "danger",
-   Link = "link"
-}
+export type ButtonSize = "lg" | "sm"
+export type ButtonType = "chinoiserie" | "primary" | "default" | "danger" | "link"
 
 interface BaseButtonProps {
     className?: string,
     btnType?: ButtonType,
     disabled?: boolean,
     size?: string,
-    chidren?: React.ReactNode,
+    children?: React.ReactNode,
     href?: string
 }
 
-export const Button:FC<BaseButtonProps> = props => {
-   const { className, btnType, disabled, size, children, href, } = props
+type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
+type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
+
+export const Button:FC<ButtonProps> = props => {
+   const { className, btnType, disabled, size, children, href, ...restProps} = props
    const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
     'disabled': (btnType === 'link') && disabled
   })
-      if (btnType === ButtonType.Link && href) {
+      if (btnType === 'link' && href) {
           return (
-            <a href={href} className={classes}> { children } </a>
+              <a href={href} className={classes} {...restProps}> { children } </a>
           ) 
       } else {
           return (
-              <button className={classes} disabled={disabled}> { children } </button>
+              <button className={classes} disabled={disabled} {...restProps}> { children } </button>
           )
       }
 }
 
 Button.defaultProps = {
     disabled: false,
-    btnType: ButtonType.Chinoiserie
+    btnType: 'chinoiserie'
   }
 
 export default Button;

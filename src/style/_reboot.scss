@@ -148,6 +148,7 @@ abbr[data-original-title] { // 1
   cursor: help; // 3
   text-decoration-skip-ink: none; // 4
 }
+button:focus{outline:0;}
 
 
 address {
@@ -351,6 +352,7 @@ label {
 button {
   // stylelint-disable-next-line property-blacklist
   border-radius: 0;
+  border: none;
 }
 
 // Work around a Firefox/IE bug where the transparent `button` background
