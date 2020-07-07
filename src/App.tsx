@@ -9,10 +9,10 @@ const App: React.FC = () => {
        {/* <Button btnType='link' href="www.baidu.com">登录</Button>
        <Button  btnType='primary' size="lg">登录</Button>
        <Button onClick={() => {alert('1')}} >登录</Button> */}
-       <Menu>
-         <MenuItem>首页</MenuItem>
-         <MenuItem>视频</MenuItem>
-         <MenuItem>图片</MenuItem>
+       <Menu defaultIndex={0} onSelect={(index) => {alert(index)}}>
+         <MenuItem index={0}>首页</MenuItem>
+         <MenuItem index={1} disabled>视频</MenuItem>
+         <MenuItem index={2}>图片</MenuItem>
        </Menu>
     </div>
   );
