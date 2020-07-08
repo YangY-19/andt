@@ -32,7 +32,7 @@
     background-image: url("../../images/long.png");
     @include button-size( $btn-padding-y,  $btn-padding-x,  $btn-font-size,  $border-radius);
     background-repeat: no-repeat;
-    background-color: rgb(205, 55, 55);
+    background-color: $Chinoiserie;
     background-size: 60px;
     background-position-x: 13px;
     background-position-y: -5px;

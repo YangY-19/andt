@@ -1,10 +1,12 @@
-import React, { FC, CSSProperties, createContext, useState } from 'react'
+import React, { FC, CSSProperties, createContext, useState, Children, FunctionComponentElement, cloneElement } from 'react'
 import classNames from 'classnames'
+import { MenuItemProps } from './menuItem'
 
 type MenuMode = 'horizontal' | 'vertical'
-type SelectCallback = (selectedIndex: number) => void
+type SelectCallback = (selectedIndex: string) => void
 interface MenuProps {
-   defaultIndex?: number,
+   defaultIndex?: string,
+   chinoiserie?: boolean,
    className?: string,
    mode?: MenuMode,
    style?: CSSProperties,
@@ -13,40 +15,62 @@ interface MenuProps {
 }
 
 interface IMenuContext {
-   index: number,
+   index: string,
+   menuType?: string,
    onSelect?: SelectCallback
 }
 
-export const MenuContext =  createContext<IMenuContext>({ index: 0})
+export const MenuContext =  createContext<IMenuContext>({ index: '0' })
 export const Menu: FC<MenuProps> = props => {
-    const { defaultIndex, className, mode, style, onSelect, defaultOpenSubMenus, children } = props
+    const { defaultIndex, className, mode, style, onSelect, defaultOpenSubMenus, children, chinoiserie } = props
     const [ currentActive, setActive ] = useState(defaultIndex);
-    const classes = classNames('menu', className, { 
-        'menu-vertical': mode === 'vertical',
+    //menu className
+    const classes = classNames('viking-menu', className, { 
+        'menu-vertical': mode === 'vertical',// && !chinoiserie,
         'menu-horizontal': mode !== 'vertical',
+        // [`menuType-chinoiserie-horizontal`]:  mode !== 'vertical' && chinoiserie,
+        // [`menuType-chinoiserie-vertical`]:  mode === 'vertical' && chinoiserie
     })
-    const handleClick = (index: number) => {
-        debugger
+
+    const handleClick = (index: string) => {
         setActive(index)
+        
         if (onSelect) {
             onSelect(index)
         }
     }
+
     const passedContext: IMenuContext = {
-        index: currentActive ? currentActive : 0,
-        onSelect: handleClick
+        index: currentActive ? currentActive : '0',
+        onSelect: handleClick,
+        menuType : chinoiserie ? 'chinoiserie' : '',
+    }
+
+    const renderChildren = () => {
+        return Children.map(children, (child, index) => {
+            const childElement = child as FunctionComponentElement<MenuItemProps>
+            const { displayName } = childElement.type
+            if (displayName === "MenuItem" || "subMenu") {
+               return cloneElement(childElement, {
+                    index: index.toString()
+                }) 
+            } else {
+                console.error("警告:菜单有一个不是MenuItem组件的子元素")
+            }
+        })
     }
    return (
        <ul className={ classes } style={ style }>
            <MenuContext.Provider value={ passedContext }>
-               { children }
+               { renderChildren() }
            </MenuContext.Provider>
        </ul>
    )
 }
 
 Menu.defaultProps = {
-    defaultIndex: 0,
+    chinoiserie: true,
+    defaultIndex: '0',
     mode: 'horizontal',
     defaultOpenSubMenus: []
 }
