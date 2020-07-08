@@ -17,7 +17,8 @@ interface MenuProps {
 interface IMenuContext {
    index: string,
    menuType?: string,
-   onSelect?: SelectCallback
+   onSelect?: SelectCallback,
+   chinoiserie?: boolean,
 }
 
 export const MenuContext =  createContext<IMenuContext>({ index: '0' })
@@ -26,10 +27,10 @@ export const Menu: FC<MenuProps> = props => {
     const [ currentActive, setActive ] = useState(defaultIndex);
     //menu className
     const classes = classNames('viking-menu', className, { 
-        'menu-vertical': mode === 'vertical',// && !chinoiserie,
+        'menu-vertical': mode === 'vertical' && !chinoiserie,
         'menu-horizontal': mode !== 'vertical',
-        // [`menuType-chinoiserie-horizontal`]:  mode !== 'vertical' && chinoiserie,
-        // [`menuType-chinoiserie-vertical`]:  mode === 'vertical' && chinoiserie
+        [`menuType-chinoiserie-horizontal`]:  mode !== 'vertical' && chinoiserie,
+        [`menuType-chinoiserie-vertical`]:  mode === 'vertical' && chinoiserie
     })
 
     const handleClick = (index: string) => {

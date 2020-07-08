@@ -12,12 +12,13 @@ interface SubMenuProps {
 const SubMenu: FC<SubMenuProps> = props => {
     const { index, children, className, title, style } = props
     const context = useContext(MenuContext)
-    const classes = classNames('viking-submenu', className, {
+    const classes = classNames('menu-item submenu-item', className, {
         // [`menu-item-chinoiserie`]: true
-        // 'is-active': context.index === index
+        'is-active': context.index === index,
+        'menu-item-chinoiserie': context.menuType
     })
     const renderChildren = () => {
-        return Children.map( children, (child, i) => {
+        const childrenComponent =  Children.map( children, (child, i) => {
             const childElement = child as FunctionComponentElement<MenuItemProps>
             const { displayName } = childElement.type
             if (displayName === 'MenuItem') {
@@ -26,9 +27,15 @@ const SubMenu: FC<SubMenuProps> = props => {
                 })
             }
         })
+
+        return (
+            <ul className="viking-submenu">
+                { childrenComponent }
+            </ul>
+        )
     }
     return (
-        <li className={classes} style={style}>
+        <li key={index} className={classes} style={style}>
             <div className="submenu-title"> { title } </div>
               { renderChildren() }
         </li>
