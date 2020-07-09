@@ -26,3 +26,10 @@
     border-color: $border;     
    }
 } 
+
+@mixin alert-style($background-color, $padding, $alertBorder, $borderColor) {
+   background-color: $background-color;
+   padding: $padding;
+   border: $alertBorder solid $borderColor;
+   box-shadow: $btn-box-shadow;
+}

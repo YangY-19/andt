@@ -6,6 +6,15 @@
   list-style: none;
   border-bottom: $menu-border-width solid $menu-border-color;
   box-shadow: $menu-box-shadow;
+  .menu-logo{
+    padding: 0 10px;
+    max-height: 40px;
+    overflow: hidden;
+    background-color: green($color: #000000);
+    img {
+      height: 40px;
+    }
+  }
   >.menu-item {
     padding: $menu-item-padding-y $menu-item-padding-x;
     cursor: pointer;
@@ -50,11 +59,11 @@
     }
   }
   .viking-submenu {
-    //display: none;
+    display: none;
     list-style:none;
     padding-left: 0;
     white-space: nowrap;
-    //transition: $menu-transition;
+    transition: $menu-transition;
     .menu-item {
       padding: $menu-item-padding-y $menu-item-padding-x;
       cursor: pointer;
@@ -66,7 +75,7 @@
     }
   }
   .viking-submenu.menu-opened {
-    //display: block;
+    display: block;
   }
 }
 .menu-horizontal {
@@ -107,20 +116,33 @@
 }
   .menuType-chinoiserie-vertical{
       // background-color: $Chinoiserie;
+      min-height: 30px;
       flex-direction: column;
       border-bottom: 0px;
       margin: 10px 20px;
       border-right: $menu-border-width solid $menu-border-color;
+      transition: height 0.5s;
       >.menu-item {
         &.is-active, &:hover {
           border-bottom: 0px;
           border-right: 0px;
         }
       }
+      .menu-logo{
+        padding: 0 10px;
+        max-height: 40px;
+        overflow: hidden;
+        background-color:$yuHong;
+        display: flex;
+        justify-content: center;
+        img {
+          height: 40px;
+        }
+      }
     .menu-item-chinoiserie {
       // padding: $menu-item-padding-y $menu-item-padding-x;
       cursor: pointer;
-      background-color: #cd3737;
+      background-color: $yuHong;
       color: #fff;
       transition: $menu-transition;
       // border-right:3px solid $Chinoiserie;
@@ -156,7 +178,7 @@
     }
     .submenu-title {
       display: flex;
-      padding: $menu-item-padding-y $menu-item-padding-x;
+      // padding: $menu-item-padding-y $menu-item-padding-x;
     }
     
     .viking-submenu {
@@ -172,12 +194,14 @@
       }
     }
 
-    
+    .title-active{
+      color: #fed703;
+    }
     
   }
 
   .menuType-chinoiserie-horizontal {
-    background-color: #cd3737;
+    background-color: $yuHong;
     display: flex;
     flex-wrap: wrap;
     padding-left: 0;
@@ -208,6 +232,7 @@
         background-image: url("../../images/long.png");
         background-repeat: no-repeat;
         background-size: 60px;
+        transform: all 0.5s;
     }
   }
   .submenu-item {
@@ -237,13 +262,13 @@
     }
   }
   .viking-submenu {
-    //display: none;
-    background-color: #cd3737;
+    display: none;
+    background-color: $yuHong;
     list-style:none;
     padding-left: 0;
     white-space: nowrap;
     border-radius: 6px;
-    //transition: $menu-transition;
+    transition: all 1s;
     .menu-item {
       padding: $menu-item-padding-y $menu-item-padding-x;
       cursor: pointer;
@@ -257,11 +282,13 @@
         background-image: url("../../images/long.png");
         background-repeat: no-repeat;
         background-size: 60px;
+        transform: all 0.5s;
       }
     }
   }
   .viking-submenu.menu-opened {
-    //display: block;
+    display: block;
   }
+    
 
   }

@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties, createContext, useState, Children, FunctionComponentElement, cloneElement } from 'react'
+import React, { FC, CSSProperties, createContext, useState, Children, FunctionComponentElement, cloneElement, ReactElement } from 'react'
 import classNames from 'classnames'
 import { MenuItemProps } from './menuItem'
 
@@ -11,7 +11,8 @@ interface MenuProps {
    mode?: MenuMode,
    style?: CSSProperties,
    onSelect?: SelectCallback,
-   defaultOpenSubMenus?: string[]
+   defaultOpenSubMenus?: string[],
+   favIcon?: ReactElement
 }
 
 interface IMenuContext {
@@ -19,11 +20,13 @@ interface IMenuContext {
    menuType?: string,
    onSelect?: SelectCallback,
    chinoiserie?: boolean,
+   mode?: MenuMode,
+   defaultOpenSubMenus?: string[]
 }
 
-export const MenuContext =  createContext<IMenuContext>({ index: '0' })
+export const MenuContext =  createContext<IMenuContext>({ index: '0'})
 export const Menu: FC<MenuProps> = props => {
-    const { defaultIndex, className, mode, style, onSelect, defaultOpenSubMenus, children, chinoiserie } = props
+    const { defaultIndex, className, mode, style, onSelect, defaultOpenSubMenus, children, chinoiserie, favIcon } = props
     const [ currentActive, setActive ] = useState(defaultIndex);
     //menu className
     const classes = classNames('viking-menu', className, { 
@@ -33,9 +36,10 @@ export const Menu: FC<MenuProps> = props => {
         [`menuType-chinoiserie-vertical`]:  mode === 'vertical' && chinoiserie
     })
 
+    const favIconClasses = classNames('menu-logo', )
+
     const handleClick = (index: string) => {
         setActive(index)
-        
         if (onSelect) {
             onSelect(index)
         }
@@ -45,6 +49,8 @@ export const Menu: FC<MenuProps> = props => {
         index: currentActive ? currentActive : '0',
         onSelect: handleClick,
         menuType : chinoiserie ? 'chinoiserie' : '',
+        mode,
+        defaultOpenSubMenus
     }
 
     const renderChildren = () => {
@@ -60,13 +66,24 @@ export const Menu: FC<MenuProps> = props => {
             }
         })
     }
-   return (
-       <ul className={ classes } style={ style }>
-           <MenuContext.Provider value={ passedContext }>
-               { renderChildren() }
-           </MenuContext.Provider>
-       </ul>
-   )
+
+    // favIcon
+    const faviconChildren = () => {
+         if (favIcon?.type === 'img') {
+            return favIcon
+         } else {
+             return console.error('警告: favIcon应该为<img>标签');  
+         }      
+    }
+
+    return (
+        <ul className={ classes } style={ style }>
+            <div className={ favIconClasses }> { faviconChildren() }</div>
+            <MenuContext.Provider value={ passedContext }>
+                { renderChildren() }
+            </MenuContext.Provider>
+        </ul>
+    )
 }
 
 Menu.defaultProps = {
