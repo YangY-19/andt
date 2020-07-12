@@ -41,9 +41,16 @@ const SubMenu: FC<SubMenuProps> = props => {
             setOpen(toggle)
          }, 300)
     }
-// debugger
+
+
+const  func = (congfig:SubMenuProps) => {
+
+}
+func({index: '1', cc: 2} as SubMenuProps)
+
+
     const hoverEvents = context.mode !=='vertical' ? {
-       onMouseEnter: (e: MouseEvent) => { handleMouse(e, true) },
+       onMouseEnter: (e: MouseEvent) => { handleMouse(e, true,) },
        onMouseLeave: (e: MouseEvent) => { handleMouse(e, false) }
     } : ''
     const renderChildren = () => {

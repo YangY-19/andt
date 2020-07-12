@@ -1,6 +1,5 @@
 import React, { FC, ReactElement, useState } from 'react'
 import classNames from 'classnames'
-import { on } from 'process'
 
 export type AlertType = 'chinoiserie' | 'success' | 'info' | 'warning' | 'error'
 

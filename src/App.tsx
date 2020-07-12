@@ -4,11 +4,15 @@ import './App.css';
 // import Menu from './component/Menu/menu'
 // import SubMenu from './component/Menu/subMenu'
 // import MenuItem from './component/Menu/menuItem'
-// import { Menu, MenuI } from 'vikingship'
+// import { Tabs } from 'vikingship'
 // import Alert from './component/Alert/alert'
 import Tabs from './component/Tabs/tabs'
 import TabItem from './component/Tabs/tabItem'
+import Icon from './component/Icon/Icon';
 const App: React.FC = () => {
+  const FUN  = (e:any) => {
+debugger
+  }
   return (
     <div className="App" >
        {/* <Button btnType='link' href="www.baidu.com">登录</Button>
@@ -38,10 +42,11 @@ const App: React.FC = () => {
        </Menu> */}
        {/* <Alert onClose={() => {alert('1')}} message="测试一下标题"  closable ></Alert> */}
 
-       <Tabs>
-         <TabItem tab="@">11</TabItem>
-         <p>222</p>
+       <Tabs onTabClick={(e) => {FUN(e)}}>
+         <TabItem addIcon={ <Icon icon="coffee"></Icon>} tab="第一页">第一页类容</TabItem>
+         <TabItem tab="第二页">第二页类容</TabItem>
        </Tabs>
+       <Icon icon="coffee"></Icon>
     </div>
   );
 }
