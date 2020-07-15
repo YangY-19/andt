@@ -3,26 +3,33 @@ import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
 import Button from './button'
+import Icon from "../Icon/Icon";
 
 const defaultButton = () => (
-  <Button onClick={action('clicked')}> default button </Button>
+  <div className='line-box'>
+    <Button onClick={action('clicked')}> 默认样式 </Button>
+    <Button icon={<Icon icon="coffee"></Icon>}  onClick={action('clicked')}> 默认样式 </Button>
+  </div>
 )
 
 const buttonWithSize = () => (
-  <>
-    <Button size="lg"> large button </Button>
-    <Button size="sm"> small button </Button>
-  </>
+  <div className='line-box1'>
+    <Button  size="lg"> 大按钮 </Button>
+    <Button  > 中按钮 </Button>
+    <Button  size="sm"> 小按钮 </Button>
+  </div>
 )
 
 const buttonWithType = () => (
-  <>
-    <Button btnType="primary"> primary button </Button>
-    <Button btnType="danger"> danger button </Button>
-    <Button btnType="link" href="https://google.com"> link button </Button>
-  </>
+  <div className='line-box'>
+    <Button btnType="chinoiserie"> 中国风按钮 </Button>
+    <Button btnType="primary"> 基本按钮</Button>
+    <Button btnType="default"> 默认按钮 </Button>
+    <Button btnType="danger"> 危险按钮 </Button>
+    <Button btnType="link" href="https://google.com"> 链接按钮</Button>
+  </div>
 )
-storiesOf('Button Component', module)
-  .add('Button', defaultButton)
-  .add('不同尺寸的 Button', buttonWithSize)
-  .add('不同类型的 Button', buttonWithType)
+storiesOf('按钮组件', module)
+  .add('按钮', defaultButton)
+  .add('不同尺寸的 按钮', buttonWithSize)
+  .add('不同类型的 按钮', buttonWithType)

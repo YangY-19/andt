@@ -25,6 +25,19 @@
 
   button:focus{outline:0;}
 
+  .line-box {
+    display: flex;
+    padding: 20px;
+    justify-content: space-around;
+    // width: 700px;
+    margin: 0 auto;
+  }
+  .line-box1 {
+    padding: 20px;
+    .btn {
+      margin-left: 100px;
+    }
+  }
 
 
   .btn-chinoiserie {
