@@ -1,57 +1,57 @@
-.alert{
-    display: inline-block;
-    border-radius: 4px;
-    font-size: 18px;
-    min-width: 280px;
-    max-width: 360px;  
-    .messages {
-        height: 50px;
-        display: flex;
-        line-height: 50px;
-        justify-content: space-between;
-        .closeText{
-            cursor: pointer;
-            color: rgba(0,0,0,.45);
-            font-size: 14px;
-        }
+.alert {
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 18px;
+  min-width: 280px;
+  max-width: 360px;
+  .messages {
+    height: 50px;
+    display: flex;
+    line-height: 50px;
+    justify-content: space-between;
+    .closeText {
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.45);
+      font-size: 14px;
     }
-    .description{
-        padding-bottom: 16px;
-        font-size: 14px;
-    }
+  }
+  .description {
+    padding-bottom: 16px;
+    font-size: 14px;
+  }
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .alert-chinoiserie {
-    background-image: url("../../images//border.png");
-    background-size: 12px;
-    background-position: 0 0;
-    background-color: $yuHong;
-    background-repeat:  repeat-x;
-    padding: 2px 14px 0px 14px;
-    font-weight: 500;
-    color: $white;
-    .closeText{
-        cursor: pointer;
-        color: $white !important;
-    }
+  background-image: url("../../images//border.png");
+  background-size: 12px;
+  background-position: 0 0;
+  background-color: $yuHong;
+  background-repeat: repeat-x;
+  padding: 2px 14px 0px 14px;
+  font-weight: 500;
+  color: $white;
+  .closeText {
+    cursor: pointer;
+    color: $white !important;
+  }
 }
 
 .alert-success {
-    @include alert-style($gongDianLv, $alertPadding, $alertBorder, $green)
+  @include alert-style($gongDianLv, $alertPadding, $alertBorder, $green);
 }
 
 .alert-warning {
-    @include alert-style($huPoHuang, $alertPadding, $alertBorder, $orange)
+  @include alert-style($huPoHuang, $alertPadding, $alertBorder, $orange);
 }
 
 .alert-info {
-    @include alert-style($jinglan, $alertPadding, $alertBorder, $blue)
+  @include alert-style($jinglan, $alertPadding, $alertBorder, $blue);
 }
 
 .alert-error {
-    @include alert-style($chengHuang, $alertPadding, $alertBorder, $red)
+  @include alert-style($chengHuang, $alertPadding, $alertBorder, $red);
 }
