@@ -16,7 +16,7 @@ interface TabsProps {
 
 export const Tabs: FC<TabsProps> = (props) => {
   const {
-    // defaultActiveKey,
+    defaultActiveKey,
     type,
     // size,
     className,
@@ -24,7 +24,7 @@ export const Tabs: FC<TabsProps> = (props) => {
     disabled,
     onTabClick,
   } = props;
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(Number(defaultActiveKey) ? Number(defaultActiveKey) : 0);
   const renderChildren = () => {
     return Children.map(children, (child, index) => {
       if (activeIndex === index) {

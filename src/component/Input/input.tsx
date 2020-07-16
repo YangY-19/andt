@@ -12,7 +12,7 @@ import classNames from "classnames";
 type InputSize = "lg" | "sm";
 type inputAndTextarea = "input" | "textarea";
 type inputType = "password" | "text" | "number";
-interface InputProps
+export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLElement>, "size">,
     TextareaHTMLAttributes<HTMLElement> {
   /**Input类型 Input Textarea */

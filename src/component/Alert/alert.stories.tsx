@@ -5,13 +5,13 @@ import { storiesOf } from "@storybook/react";
 import Alert from "./alert";
 // import Icon from "../Icon/Icon";
 
-const defaultMenu = () => (
+const defaultAlert = () => (
   <>
     <Alert message="提示信息!"></Alert>
   </>
 );
 
-const briefnessMenu = () => (
+const briefnessAlert = () => (
   <div
     style={{
       display: "flex",
@@ -27,14 +27,20 @@ const briefnessMenu = () => (
   </div>
 );
 
-// const buttonWithType = () => (
-//   <>
-//     <Button btnType="primary"> primary button </Button>
-//     <Button btnType="danger"> danger button </Button>
-//     <Button btnType="link" href="https://google.com"> link button </Button>
-//   </>
-// )
+const WithTypeAlert = () => (
+  <div style={{
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    height:500
+  }}>
+    <Alert  message="提示信息!" description="提示的类容写在这里!"></Alert>
+    <Alert message="提示信息!" description="提示的类容写在这里!" closable onClose={() => {alert('1')}}>  </Alert>
+    <Alert message="提示信息!" description="提示的类容写在这里!" closable closeText="关闭">  </Alert>
+    <Alert  message="提示信息!" description="提示的类容写在这里!"></Alert>
+  </div>
+)
 storiesOf("Alert组件", module)
-  .add("默认Alert", defaultMenu)
-  .add("多样式标签", briefnessMenu);
-// .add('不同类型的 Button', buttonWithType)
+  .add("默认Alert", defaultAlert)
+  .add("多样式Alert", briefnessAlert)
+.add('其他Alert', WithTypeAlert)

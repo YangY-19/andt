@@ -1,6 +1,8 @@
 import React, { FC, ReactElement, useState } from "react";
 import classNames from "classnames";
 import Icon from "../Icon/Icon";
+import Transition from "../Transition/transition";
+
 export type AlertType =
   | "chinoiserie"
   | "success"
@@ -15,6 +17,7 @@ interface AlertProps {
   type?: AlertType;
   closable?: boolean; //是否显示关闭按钮
   closeText?: ReactElement | string; //自定义关闭按钮
+  delay?:number;
   onClose?: () => void;
 }
 
@@ -26,13 +29,20 @@ export const Alert: FC<AlertProps> = (props) => {
     type,
     closeText,
     closable,
+    delay = 3000,
     onClose,
   } = props;
   const [show, setShow] = useState(false);
   const classes = classNames("alert", className, {
     [`alert-${type}`]: type,
-    hide: show,
+    // hide: show,
   });
+
+  if (!closable) {
+    setTimeout(() => {
+      setShow(true);
+    }, delay)
+  }
 
   const typeIcon = (): ReactElement => {
     if (type === "success") {
@@ -70,25 +80,28 @@ export const Alert: FC<AlertProps> = (props) => {
   };
 
   return (
-    <div className={classes}>
-      <div className="messages">
-        <p>
-          {typeIcon()}
-          {message}
-        </p>
-        {closable && (
-          <p className="closeText" onClick={handleClose}>
-            {closeText ? closeText : "X"}
-          </p>
-        )}
-      </div>
-      {description && <div className="description">{description}</div>}
-    </div>
+    <Transition in={!show} timeout={300} animation="zoom-in-top">
+        <div className={classes}>
+          <div className="messages">
+            <p>
+              {typeIcon()}
+              {message}
+            </p>
+            {closable && (
+              <p className="closeText" onClick={handleClose}>
+                {closeText ? closeText : <Icon icon="times" theme="white" />}
+              </p>
+            )}
+          </div>
+          {description && <div className="description">{description}</div>}
+        </div>
+    </Transition>
   );
 };
 
 Alert.defaultProps = {
   type: "chinoiserie",
+  closable: false
 };
 
 export default Alert;

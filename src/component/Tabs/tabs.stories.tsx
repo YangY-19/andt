@@ -19,7 +19,7 @@ const defaultMenu = () => (
 
 const briefnessMenu = () => (
   <>
-    <Tabs type="card">
+    <Tabs type="card" defaultActiveKey={'1'}>
       <TabItem addIcon={<Icon icon="coffee"></Icon>} tab="第一页">
         第一页类容
       </TabItem>

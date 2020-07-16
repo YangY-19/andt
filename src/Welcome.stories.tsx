@@ -8,6 +8,9 @@ import Icon from "./component/Icon/Icon";
 import MenuItem from "./component/Menu/menuItem";
 import Menu from "./component/Menu/menu";
 import SubMenu from "./component/Menu/subMenu";
+import Input from './component/Input/input'
+
+import './App.scss'
 storiesOf("Welcome page", module).add(
   "welcome",
   () => {
@@ -47,8 +50,14 @@ storiesOf("Welcome page", module).add(
           <div>
             <Button>登录</Button>
           </div>
-          <div style={{ marginTop: 20 }}>
-            <Alert message="提示信息!"></Alert>
+          <div style={{ marginTop: 40 }}>
+            <Alert message="提示信息!" closable></Alert>
+          </div>
+
+          <div style={{ marginTop: 40 }}>
+          <Input
+              append={<Icon icon="search" />}
+            />
           </div>
 
           <div style={{ marginTop: 20, width: 400 }}>
@@ -62,7 +71,7 @@ storiesOf("Welcome page", module).add(
             </Menu>
           </div>
 
-          <div style={{ marginTop: 20, width: 400 }}>
+          <div style={{ marginTop: 40, width: 400 }}>
             <Tabs>
               <TabItem addIcon={<Icon icon="coffee"></Icon>} tab="第一页">
                 第一页类容
