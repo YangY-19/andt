@@ -18,6 +18,7 @@ export interface InputProps
   /**Input类型 Input Textarea */
   type?: inputAndTextarea;
   inputType?: inputType;
+  chinoiserie?: boolean;
   /**是否禁用 Input */
   disabled?: boolean;
   /**设置 input 大小，支持 lg 或者是 sm */
@@ -45,6 +46,7 @@ export const Input: FC<InputProps> = (props) => {
     lastIcon,
     firstIcon,
     passwordIcon,
+    chinoiserie,
     onChange,
     ...resultProps
   } = props;
@@ -89,6 +91,7 @@ export const Input: FC<InputProps> = (props) => {
     "input-group": prepend || append,
     "input-group-append": !!append,
     "input-group-prepend": !!prepend,
+    "input-chinoiserie": chinoiserie,
   });
 
   const inputClass = classNames("viking-input-group-icon", {

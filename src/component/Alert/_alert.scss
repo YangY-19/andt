@@ -24,7 +24,6 @@
 
 .hide {
   display: none;
-  
 }
 
 .alert-chinoiserie {
@@ -35,10 +34,16 @@
   background-repeat: repeat-x;
   padding: 2px 14px 0px 14px;
   font-weight: 500;
-  color: $white;
+  color: #fed703;
   .closeText {
     cursor: pointer;
-    color: $white !important;
+    color: #fed703 !important;
+  }
+  svg {
+    color: #fed703;
+    &:hover {
+      font-size: 15px;
+    }
   }
 }
 

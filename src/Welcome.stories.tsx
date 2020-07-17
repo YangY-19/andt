@@ -8,9 +8,9 @@ import Icon from "./component/Icon/Icon";
 import MenuItem from "./component/Menu/menuItem";
 import Menu from "./component/Menu/menu";
 import SubMenu from "./component/Menu/subMenu";
-import Input from './component/Input/input'
+import Input from "./component/Input/input";
 
-import './App.scss'
+import "./App.scss";
 storiesOf("Welcome page", module).add(
   "welcome",
   () => {
@@ -55,9 +55,7 @@ storiesOf("Welcome page", module).add(
           </div>
 
           <div style={{ marginTop: 40 }}>
-          <Input
-              append={<Icon icon="search" />}
-            />
+            <Input chinoiserie append={<Icon icon="search" />} />
           </div>
 
           <div style={{ marginTop: 20, width: 400 }}>
