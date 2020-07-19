@@ -1,0 +1,70 @@
+.andt-select {
+  .andt-select-selector {
+    width: 100%;
+    height: 40px;
+    padding: $input-padding-y $input-padding-x;
+    font-family: $input-font-family;
+    font-size: $input-font-size;
+    font-weight: $input-font-weight;
+    line-height: $input-line-height;
+    color: $input-color;
+    background-color: $input-bg;
+    background-clip: padding-box;
+    border: $input-border-width solid $input-border-color;
+    display: flex;
+    justify-content: space-between;
+    .input {
+        flex: 1;
+        input {
+            width: 100%;
+            // opacity: 0;
+            border:none;
+            outline:medium;
+        }
+    }
+    .input-text {
+        flex: 1;
+    }
+    .icon {
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.input-is-active {
+    border: 1px $primary solid;
+}
+
+.andt-option-list {
+    list-style:none;
+    padding-left: 0;
+    white-space: nowrap;
+    background: $white;
+    z-index: 100;
+    left: 0;
+    border: $menu-border-width solid $menu-border-color;
+    box-shadow: $submenu-box-shadow;
+    width: 100%;
+    transform: all 0.5s;
+  .andt-option {
+    display: flex;
+    align-items: center;
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    cursor: pointer;
+    transition: $menu-transition;
+    color: $body-color;
+    &.is-active {
+      background: $menu-item-active-color !important;
+      color: $white !important;
+    }
+    &:hover {
+      background: #73bfdc !important;
+      color: $white !important;
+    }
+    &:hover svg {
+      color: $white !important;
+    }
+  }
+}
+}

@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import classNames from "classnames";
 import { MenuItemProps } from "./menuItem";
+import { IconProps } from "../Icon/Icon";
 
 type MenuMode = "horizontal" | "vertical";
 type SelectCallback = (selectedIndex: string) => void;
@@ -21,7 +22,7 @@ interface MenuProps {
   style?: CSSProperties;
   onSelect?: SelectCallback;
   defaultOpenSubMenus?: string[];
-  favIcon?: ReactElement;
+  favIcon?: ReactElement | IconProps | string;
 }
 
 interface IMenuContext {
@@ -86,18 +87,9 @@ export const Menu: FC<MenuProps> = (props) => {
     });
   };
 
-  // favIcon
-  const faviconChildren = () => {
-    if (favIcon?.type === "img") {
-      return favIcon;
-    } else {
-      return console.error("警告: favIcon应该为<img>标签");
-    }
-  };
-
   return (
     <ul className={classes} style={style}>
-      <div className={favIconClasses}> {faviconChildren()}</div>
+      <div className={favIconClasses}> { favIcon }</div>
       <MenuContext.Provider value={passedContext}>
         {renderChildren()}
       </MenuContext.Provider>

@@ -4,11 +4,17 @@ import React, {
   useState,
   useEffect,
   ReactElement,
+  useRef,
+  Fragment,
 } from "react";
 import Input, { InputProps } from "../Input/input";
 import Icon from "../Icon/Icon";
 import useDebounce from "../../hooks/useDebounce";
-import classnames from "classnames";
+import useClickOutside from "../../hooks/useClickOutside"
+import classNames from "classnames";
+import Transition from '../Transition/transition'
+import { IconProps } from "../Icon/Icon";
+
 interface DataSourceObject {
   value: string;
 }
@@ -22,6 +28,7 @@ interface AutoCompleteProps extends Omit<InputProps, "onSelect"> {
   onSelect?: (value: DataSourceType) => void;
   //自定义模板
   renderOption?: (item: DataSourceType) => ReactElement;
+  icon?: IconProps
 }
 const AutoComponent: FC<AutoCompleteProps> = (props) => {
   const {
@@ -29,36 +36,51 @@ const AutoComponent: FC<AutoCompleteProps> = (props) => {
     onSelect,
     value,
     renderOption,
+    icon,
     ...resultProps
   } = props;
 
   const [inputValue, setInputValue] = useState(value as string);
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
+  const [ showDropdown, setShowDropdown] = useState(false)
   const [highlightIndex, setHighlightIndex] = useState(1);
+  const componentRef = useRef<HTMLDivElement>(null)
   const debouncedValue = useDebounce(inputValue, 500);
+  const triggerSearch = useRef(false)
+  useClickOutside(componentRef, () => { setSuggestions([]) })
   //设置输入框里的值
   useEffect(() => {
-    if (debouncedValue) {
+    if (debouncedValue && triggerSearch.current) {
       const results = fetchSuggestions(debouncedValue);
       if (results instanceof Promise) {
+        setLoading(true);
         results.then((data) => {
           setLoading(false);
           setSuggestions(data);
+          if (data.length > 0) {
+            setShowDropdown(true)
+          }
         });
       } else {
         setSuggestions(results);
+        setShowDropdown(true)
+        if (results.length > 0) {
+          setShowDropdown(true)
+        } 
       }
     } else {
-      setLoading(false);
-      setSuggestions([]);
+      setShowDropdown(false);
     }
   }, [debouncedValue]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLoading(true);
     const value = e.target.value.trim();
+    if (!value) {
+        setLoading(false);
+    }
     setInputValue(value);
+    triggerSearch.current = true
   };
 
   //自定义模板
@@ -67,7 +89,9 @@ const AutoComponent: FC<AutoCompleteProps> = (props) => {
   };
 
   const handleSelect = (item: DataSourceType) => {
+    setShowDropdown(false)
     setInputValue(item.value);
+    triggerSearch.current = false
   };
 
   //键盘事件
@@ -94,7 +118,7 @@ const AutoComponent: FC<AutoCompleteProps> = (props) => {
         highlight(highlightIndex + 1);
         break;
       case 27:
-        setSuggestions([]);
+        setShowDropdown(false);
         break;
       default:
         break;
@@ -102,25 +126,42 @@ const AutoComponent: FC<AutoCompleteProps> = (props) => {
   };
 
   const generateDropdown = () => {
+      console.log(loading)
     return (
-      <ul>
-        {suggestions.map((item, index) => {
-          const classes = classnames("suggestion-item", {
-            "is-active": highlightIndex === index,
-          });
-          return (
-            <li className={classes} onClick={() => handleSelect(item)}>
-              {" "}
-              {renderTemplate(item)}
-            </li>
-          );
-        })}
-      </ul>
+        <Transition
+        in={showDropdown || loading}
+        animation="zoom-in-top"
+        timeout={300}
+        onExited={() => {setSuggestions([])}}
+      >
+        <ul className="viking-suggestion-list">
+          { loading &&
+            <div className="suggstions-loading-icon">
+              <Icon icon="spinner" spin/>
+            </div>
+         }
+         {
+            suggestions.map((item, index) => {
+                const cnames = classNames('suggestion-list-item', {
+                  'is-active': index === highlightIndex
+                })
+                return (
+                  <div className={cnames}>
+                        { icon && icon }
+                        <li key={index} onClick={() => handleSelect(item)}>
+                            {renderTemplate(item)}
+                        </li>
+                  </div>
+                )
+              })
+        }
+        </ul>
+      </Transition>
     );
   };
 
   return (
-    <div className="viking-auto-complete">
+    <div className="viking-auto-complete" ref={componentRef}>
       <Input
         inputType="text"
         value={inputValue}
@@ -128,12 +169,7 @@ const AutoComponent: FC<AutoCompleteProps> = (props) => {
         onKeyDown={handleKeyDown}
         {...resultProps}
       />
-      {loading && (
-        <ul>
-          <Icon style={{ color: "#ccc" }} icon="spinner" spin></Icon>
-        </ul>
-      )}
-      {suggestions.length > 0 && generateDropdown()}
+      { generateDropdown()}
     </div>
   );
 };

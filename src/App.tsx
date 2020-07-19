@@ -26,9 +26,7 @@ const App: React.FC = () => {
           defaultOpenSubMenus={["2"]}
           mode="horizontal"
           chinoiserie={false}
-          favIcon={
-            <img src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"></img>
-          }
+  
         >
           <MenuItem>视频</MenuItem>
           <MenuItem>图片</MenuItem>

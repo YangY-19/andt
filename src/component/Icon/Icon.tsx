@@ -17,7 +17,8 @@ export type TheneProps =
   | "warning"
   | "light"
   | "dark"
-  | "white";
+  | "white"
+  | "black"
 export interface IconProps extends FontAwesomeIconProps {
   theme?: TheneProps;
 }

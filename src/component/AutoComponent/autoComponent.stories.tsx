@@ -7,7 +7,7 @@ interface LakePayer {
   value: string;
   id: number;
 }
-const defaultButton = () => {
+const defaultComponent = () => {
   // const lakers = ["bradley", "pope", "abb", "cooks", "cousins", "james", "ess"];
   const handleFetch = (query: string) => {
     // let list = lakers
@@ -18,7 +18,6 @@ const defaultButton = () => {
     return fetch(`https://api.github.com/search/users?q=${query}`)
       .then((res) => res.json())
       .then(({ items }) => {
-        console.log(items);
         return items
           .slice(0, 10)
           .map((item: any) => ({ value: item.login, ...item }));
@@ -50,4 +49,4 @@ const defaultButton = () => {
   return <AutoComponent fetchSuggestions={handleFetch} />;
 };
 
-storiesOf("inputCom组件", module).add("按钮", defaultButton);
+storiesOf("autoComponent", module).add("autoComponent", defaultComponent);
